@@ -47,7 +47,7 @@ machine checkout {
 | --- | --- |
 | `repos/liblucy/src/core/parser/` | The real grammar: a hand-written parser. `keyword.c` lists the keywords; one file per construct. |
 | `repos/liblucy/test/snapshots/` | An `input.lucy` and `expected.js` per feature. |
-| `repos/lezer-lucy/src/lucy.grammar` | Lezer grammar, used by codemirror-lang. |
+| `repos/lezer-lucy/src/lucy.grammar` | Lezer grammar, used by codemirror-lang. Tests in `test/*.txt` (`npm test`). |
 | `repos/codemirror-lang/src/lucy.ts` | Highlighting tags and completion on top of the Lezer grammar. |
 | `repos/lucy-prism/lib/lucy.js` | Prism grammar (regex based). The website highlights with it. |
 | `repos/lucy-vscode/syntaxes/lucy.tmLanguage.json` | TextMate grammar for VS Code. |
