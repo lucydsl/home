@@ -1,0 +1,3 @@
+# Child repos are cloned here on demand; each keeps its own history and remote.
+/repos/*
+!/repos/.gitkeep

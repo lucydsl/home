@@ -1,0 +1,12 @@
+#!/bin/sh
+# Clone Lucy repos into repos/. With no arguments, clones the active ones.
+set -eu
+cd "$(dirname "$0")/.."
+[ $# -gt 0 ] || set -- liblucy website lezer-lucy lucy-prism lucy-vscode codemirror-lang
+for name in "$@"; do
+  if [ -d "repos/$name" ]; then
+    echo "repos/$name is already there"
+  else
+    git clone "git@github.com:lucydsl/$name.git" "repos/$name"
+  fi
+done
