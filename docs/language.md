@@ -5,12 +5,15 @@ The full reference is the website's language guide: `repos/website/src/pages/doc
 ## In brief
 
 ```lucy
-use './util.js' { log, getUsers }
-
-action logIt = log
-guard canPay = :hasFunds
+use './util.js' { log, getUsers, Order }
 
 machine checkout {
+  action logIt = log
+  guard canPay = :hasFunds
+
+  event pay(Order)
+  event delay
+
   initial state idle {
     pay => canPay => logIt => assign(total, :sum) => paying
     on(delay) => idle
@@ -30,13 +33,13 @@ machine checkout {
 }
 ```
 
-- **Keywords:** `use`, `machine`, `state`, `initial`, `final`, `action`, `guard`, `assign`, `invoke`, `delay`, `on`, `spawn`, `send`, and the built-in events `@entry` and `@exit`.
+- **Keywords:** `use`, `machine`, `state`, `initial`, `final`, `action`, `guard`, `event`, `assign`, `invoke`, `delay`, `on`, `spawn`, `send`, and the built-in events `@entry` and `@exit`. `event` is a keyword only where a declaration can go, so it still works as an event's name in a state.
 - **References:** an identifier names something from `use`, a named `action` or `guard`, or a machine in the file. A `:symbol` names a function supplied when the machine is created, in the option for its kind (`actions`, `guards`, `assigns`, `delays`, `services`).
 - **Machines:** `machine name { ... }`, or top-level states for one unnamed machine. A machine inside a state is a nested state; its states are addressed by dotted path (`idle.errored`).
 - **Transitions:** `event => guard... => action... => target`. No event name means immediate. `delay(200)`, `delay(2s)`, `delay(:fn)` fire after a time; units are `ms`, `s`, `m`. `on(name)` is the long form, for events named like keywords.
 - **Actors:** `assign(ref, spawn(machine))` keeps a child; `send(ref, event)` and `send(parent, event)` pass events.
 - **Comments:** `//` to end of line.
-- There is no type syntax. Event payloads travel as `event.data`.
+- **Events:** a named machine can declare its events, `event name` or `event name(Type)`, where the type is that of `event.data`. A type is a single name, built into TypeScript or imported with `use` (then left out of the JavaScript import). Declarations are optional; with them the compiler warns about undeclared and unhandled events, and the `.d.ts` gets the machine's event types. Not allowed at the top level, in a file's unnamed machine, or in a machine nested in a state. There is no other type syntax.
 
 ## Where the syntax lives
 
