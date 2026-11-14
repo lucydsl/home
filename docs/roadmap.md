@@ -4,9 +4,7 @@ What's in flight and what's known to be wrong, across repos. Last updated 2026-1
 
 ## In flight
 
-- **wasi-sdk build** (liblucy#78): open, CI green, not merged.
-- **Typed events** (liblucy#80): `event name(Type)` in a machine block. The grammars and docs follow it, each waiting on the one before: lezer-lucy#2 (also the rest of the syntax, which it was missing), then codemirror-lang#1 (needs a lezer-lucy release); lucy-prism#2; lucy-vscode#3; website#10 (needs the compiler release, and a `@lucy/prism` release to highlight `event`). See [decisions.md](decisions.md).
-- **Release 0.6.0**: `main` emits plain JavaScript, but the latest GitHub release (v0.5.8) and npm (`@lucy/liblucy` 0.5.6) still emit XState, and `package.json` still says 0.5.8. Until a release, the website documents a compiler people can't install. See [releasing.md](releasing.md).
+- **Typed events** (liblucy#80, released in 0.6.0): `event name(Type)` in a machine block. The grammars and docs follow it, each waiting on the one before: lezer-lucy#2 (also the rest of the syntax, which it was missing), then codemirror-lang#1 (needs a lezer-lucy release); lucy-prism#2; lucy-vscode#3; website#10 (needs a `@lucy/prism` release to highlight `event`). See [decisions.md](decisions.md).
 
 ## Known bugs in liblucy
 
@@ -22,7 +20,7 @@ What's in flight and what's known to be wrong, across repos. Last updated 2026-1
 
 - **Syntax support:** lucy-prism and lucy-vscode haven't been checked against the parser since 2021, apart from `event`. lezer-lucy#2 brings the Lezer grammar up to the parser: every valid `.lucy` input in liblucy's tests parses with it.
 - **Bundler plugins** (rollup, snowpack) target liblucy 0.1 and XState output. A Vite plugin would be the modern replacement.
-- **lucy-repl** targets liblucy 0.2. A playground on the website would need the wasm build from liblucy#78.
+- **lucy-repl** targets liblucy 0.2. A playground on the website could use the wasm build directly: it is one `lucy.wasm` with no imports.
 
 ## Ideas
 

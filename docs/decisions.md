@@ -21,9 +21,13 @@ The project no longer holds lucylang.org, so that domain should appear nowhere: 
 
 The site moved from Eleventy to Astro and is served as a static-assets Worker. Pushing to `main` deploys; pull requests get previews. Its CSS follows [Tideway](https://tidewaystyle.com/): tokens, semantic colour roles, flat BEM. The design ("a statechart, printed at night") is described in the website's readme.
 
-## 2026-11: Build wasm with wasi-sdk, not Emscripten (in progress)
+## 2026-11: Publish to npm from CI, with trusted publishing
 
-The wasm module is built with a pinned wasi-sdk and loaded by a small hand-written loader, giving one `lucy.wasm` with no imports and no generated glue code. Emscripten's toolchain is large, its output changes between versions, and the compiler needs none of what it provides beyond libc. Open as liblucy#78; until it merges, `main` still builds with Emscripten 7.
+The four published packages (`@lucy/liblucy`, `@lucy/lezer-lucy`, `@lucy/codemirror-lang`, `@lucy/prism`) publish from a `release.yml` workflow in their repo when a `v*` tag is pushed. npm trusts that workflow file in that repo (OIDC), so there are no tokens. The workflow's filename and the repo are fixed on npmjs.com: renaming either breaks publishing until the trusted publisher is deleted and added again there.
+
+## 2026-11: Build wasm with wasi-sdk, not Emscripten
+
+The wasm module is built with a pinned wasi-sdk and loaded by a small hand-written loader, giving one `lucy.wasm` with no imports and no generated glue code. Emscripten's toolchain is large, its output changes between versions, and the compiler needs none of what it provides beyond libc. Merged as liblucy#78.
 
 ## 2026-11: Compile to plain JavaScript, not XState
 
