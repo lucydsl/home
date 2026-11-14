@@ -4,8 +4,7 @@ What's in flight and what's known to be wrong, across repos. Last updated 2026-1
 
 ## In flight
 
-- **wasi-sdk build** (liblucy#78): open, CI green, not merged.
-- **Release 0.6.0**: `main` emits plain JavaScript, but the latest GitHub release (v0.5.8) and npm (`@lucy/liblucy` 0.5.6) still emit XState, and `package.json` still says 0.5.8. Until a release, the website documents a compiler people can't install. See [releasing.md](releasing.md).
+- **Release 0.6.0**: `main` emits plain JavaScript, but the latest GitHub release (v0.5.8) and npm (`@lucy/liblucy` 0.5.6) still emit XState, and `package.json` still says 0.5.8. Until a release, the website documents a compiler people can't install. Publishing is set up (push a tag); see [releasing.md](releasing.md).
 
 ## Known bugs in liblucy
 
@@ -18,9 +17,9 @@ What's in flight and what's known to be wrong, across repos. Last updated 2026-1
 
 ## Behind the compiler
 
-- **Syntax support** (lezer-lucy, codemirror-lang, lucy-prism, lucy-vscode) hasn't been checked against the parser since 2021.
+- **Syntax support** (lezer-lucy, codemirror-lang, lucy-prism, lucy-vscode) hasn't been checked against the parser since 2021. Known: the Lezer grammar can't parse states inside a `machine name { ... }` block (`MachineBlock` lists `StateBlock` where it needs `StateDeclaration`).
 - **Bundler plugins** (rollup, snowpack) target liblucy 0.1 and XState output. A Vite plugin would be the modern replacement.
-- **lucy-repl** targets liblucy 0.2. A playground on the website would need the wasm build from liblucy#78.
+- **lucy-repl** targets liblucy 0.2. A playground on the website could use the wasm build directly: it is one `lucy.wasm` with no imports.
 
 ## Ideas
 
