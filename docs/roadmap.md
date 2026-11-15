@@ -4,6 +4,7 @@ What's in flight and what's known to be wrong, across repos. Last updated 2026-1
 
 ## In flight
 
+- **`@lucy/vite` 0.1.0.** The plugin is written (lucydsl/vite-plugin) but not on npm. A new package's first publish is by hand; after it, add the trusted publisher on npmjs.com so tags publish like the others. website#11 documents it and waits for the publish.
 - **Typed events, the last release.** Shipped in liblucy 0.6.0, `@lucy/lezer-lucy` 0.2.0, `@lucy/codemirror-lang` 0.2.0, `@lucy/prism` 1.6.0 and the website. Left: lucy-vscode#3 (merged) still has to be published to the Marketplace by hand. See [decisions.md](decisions.md).
 
 ## Known bugs in liblucy
@@ -19,7 +20,7 @@ What's in flight and what's known to be wrong, across repos. Last updated 2026-1
 ## Behind the compiler
 
 - **Syntax support:** lucy-prism and lucy-vscode haven't been checked against the parser since 2021, apart from `event`. The Lezer grammar is up to date as of `@lucy/lezer-lucy` 0.2.0: every valid `.lucy` input in liblucy's tests parses with it.
-- **Bundler plugins** (rollup, snowpack) target liblucy 0.1 and XState output. A Vite plugin would be the modern replacement.
+- **Bundler plugins:** `@lucy/vite` (vite-plugin) is the supported one. The rollup and snowpack plugins target liblucy 0.1 and XState output; they're out of the docs and may be updated later.
 - **lucy-repl** targets liblucy 0.2. A playground on the website could use the wasm build directly: it is one `lucy.wasm` with no imports.
 
 ## Ideas

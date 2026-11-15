@@ -2,6 +2,10 @@
 
 Choices that shape more than one repo, newest first. Add an entry when one is made; don't rewrite old ones, add a new entry that supersedes them.
 
+## 2026-11: Vite is the one supported build tool
+
+`@lucy/vite` (vite-plugin) is the only build tool plugin that is documented and kept up with the compiler. It is written for Vite 8's Rolldown: a `transform` hook with a hook filter for `.lucy` ids, so other modules never reach the plugin, and it still works back to Vite 6.3. The Rollup and Snowpack plugins are left as they are, out of the docs; they may be updated later.
+
 ## 2026-11: Typed events are declared per machine, with a type name for their data
 
 A machine declares its events with `event name` or `event name(Type)` (liblucy#80). This settles the open questions in the roadmap's typed-events idea:

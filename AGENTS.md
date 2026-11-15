@@ -30,6 +30,7 @@ Active:
 
 - liblucy (the compiler, in C17; builds the `lucyc` CLI and the wasm in the `@lucy/liblucy` npm package): `repos/liblucy`. Clone from `git@github.com:lucydsl/liblucy.git` if missing. Read `src/README.md` (layout and C conventions) before touching the C. Ask the maintainer before pushing or opening a PR.
 - website (the site and docs at lucy.spooky.click; Astro, deployed as a Cloudflare Worker on every push to `main`): `repos/website`. Clone from `git@github.com:lucydsl/website.git` if missing. Read its `README.md`; its CSS follows Tideway, with skills in its `.claude/skills/`. Pull requests get a preview URL.
+- vite-plugin (the Vite plugin, `@lucy/vite`; the one supported build tool plugin, compiling `.lucy` imports with `@lucy/liblucy`): `repos/vite-plugin`. Clone from `git@github.com:lucydsl/vite-plugin.git` if missing.
 
 Syntax support (each has its own copy of the grammar; see [docs/language.md](docs/language.md)):
 
@@ -41,7 +42,7 @@ Syntax support (each has its own copy of the grammar; see [docs/language.md](doc
 Dormant (last real work in 2021; they target old liblucy versions that emitted XState, so don't treat their code as current, and check with the maintainer before reviving one):
 
 - lucy-repl (browser REPL; liblucy 0.2, CodeMirror 0.18): `repos/lucy-repl`. Clone from `git@github.com:lucydsl/lucy-repl.git` if missing.
-- rollup-plugin-lucy (`@lucy/rollup-plugin`; liblucy 0.1): `repos/rollup-plugin-lucy`. Clone from `git@github.com:lucydsl/rollup-plugin-lucy.git` if missing.
-- lucy-snowpack-plugin (`@lucy/snowpack-plugin`; liblucy 0.1, and Snowpack itself is retired): `repos/lucy-snowpack-plugin`. Clone from `git@github.com:lucydsl/lucy-snowpack-plugin.git` if missing.
+- rollup-plugin-lucy (`@lucy/rollup-plugin`; liblucy 0.1; superseded by vite-plugin and no longer in the docs): `repos/rollup-plugin-lucy`. Clone from `git@github.com:lucydsl/rollup-plugin-lucy.git` if missing.
+- lucy-snowpack-plugin (`@lucy/snowpack-plugin`; liblucy 0.1, and Snowpack itself is retired; no longer in the docs): `repos/lucy-snowpack-plugin`. Clone from `git@github.com:lucydsl/lucy-snowpack-plugin.git` if missing.
 - typescript-plugin (TypeScript language service plugin; a stub, version 0.0.1): `repos/typescript-plugin`. Clone from `git@github.com:lucydsl/typescript-plugin.git` if missing.
 - webpack-plugin (never started; the repo is empty): `git@github.com:lucydsl/webpack-plugin.git`.
