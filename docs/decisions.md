@@ -2,6 +2,17 @@
 
 Choices that shape more than one repo, newest first. Add an entry when one is made; don't rewrite old ones, add a new entry that supersedes them.
 
+## 2026-11: Typed events are declared per machine, with a type name for their data
+
+A machine declares its events with `event name` or `event name(Type)` (liblucy#80). This settles the open questions in the roadmap's typed-events idea:
+
+- **Per machine, not per file.** Declarations go in a `machine { }` block and cover that machine and the machines nested in its states. They aren't allowed at the top level, so nothing depends on a file's unnamed machine, which may be removed.
+- **The payload stays under `event.data`.** An event's type is the type of its `data`, so the JavaScript and `send({ type, data })` are unchanged. Sending a DOM event straight in as the event isn't a goal.
+- **Types are passed through, not parsed.** A type is one name: built into TypeScript, or imported with `use`, in which case the JavaScript leaves it out of the import and the `.d.ts` imports it with `import type`. Anything richer is named in a `.ts` file. There is no `use type`.
+- **One type per event name** within a machine, since whoever sends an event doesn't know what state the machine is in.
+- **Warnings, not errors**, for transitions on undeclared events and declared events no state handles, so a machine can be annotated gradually. A machine with no declarations isn't checked.
+- **Context gets no declaration.** The `.d.ts` instead checks that the `context` passed in can hold what `assign(key)` stores from an event's data.
+
 ## 2026-11: The site is at lucy.spooky.click
 
 The project no longer holds lucylang.org, so that domain should appear nowhere: not in readmes, package metadata, docs or install scripts. The site is https://lucy.spooky.click/, and the install script is https://lucy.spooky.click/install.sh.
