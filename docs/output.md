@@ -1,6 +1,6 @@
 # What the compiler emits
 
-liblucy turns a `.lucy` file into one JavaScript module, and with `--experimental-dts` a `.d.ts` beside it. The reference is liblucy's readme and the snapshots in `repos/liblucy/test/snapshots/`. Anything that consumes compiled machines (the website's examples, bundler plugins, a REPL) depends on this shape.
+liblucy turns a `.lucy` file into one JavaScript module and the `.d.ts` that types it, or (from 0.7, `lucyc --ts`, `format: 'ts'`) into one TypeScript module holding both. The reference is liblucy's readme and the snapshots in `repos/liblucy/test/snapshots/`. Anything that consumes compiled machines (the website's examples, bundler plugins, a REPL) depends on this shape.
 
 ## Shape
 
@@ -16,4 +16,5 @@ liblucy turns a `.lucy` file into one JavaScript module, and with `--experimenta
 - **Only what the machine needs.** No code for features a machine doesn't use: no timers without delays, no `enterX`/`exitX` functions for states with nothing to do on entry or exit.
 - **Readable.** It should look like what a person would write by hand: a `states` table with a method per event.
 - **Short stack traces.** From `send` to a user's action is three frames.
+- **Typed at the edges.** The declarations are always produced; there is no option. The TypeScript format is the same code with the same types: each factory's declaration is its overload signature, and the body uses `any`. It starts with `// @ts-nocheck`, because the output can hold functions and type parameters nothing uses (an unreachable state's `enterX`), which a project's `noUnusedLocals` would reject. Importers are still fully checked.
 - **Stable.** Output is covered by snapshots, and a change to it is a deliberate, reviewed change. Refactors of the compiler must leave it byte-identical.

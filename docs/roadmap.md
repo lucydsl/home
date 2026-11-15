@@ -5,6 +5,7 @@ What's in flight and what's known to be wrong, across repos. Last updated 2026-1
 ## In flight
 
 - **Typed events, the last release.** Shipped in liblucy 0.6.0, `@lucy/lezer-lucy` 0.2.0, `@lucy/codemirror-lang` 0.2.0, `@lucy/prism` 1.6.0 and the website. Left: lucy-vscode#3 (merged) still has to be published to the Marketplace by hand. See [decisions.md](decisions.md).
+- **liblucy 0.7: declarations always on, TypeScript output.** Written and tested on the local branch `dts-always`; not pushed or released yet. The website's docs for it wait on the release. `@lucy/vite` 0.2.0 (`.lucy.d.ts`, on by default) is out and works with 0.6 and 0.7.
 
 ## Known bugs in liblucy
 
@@ -12,6 +13,7 @@ What's in flight and what's known to be wrong, across repos. Last updated 2026-1
 - `send(parent, ...)` compiles but fails at run time: spawned machines get no reference to their parent.
 - Spawned and invoked child machines are created without options, so they can't use symbols.
 - A top-level `action` or `guard` followed by a `machine { }` block fails to parse ("Unknown top-level identifier" at the machine's first state). Declare them inside the machine instead.
+- A name with a digit in it (`state s1`) fails to parse ("Unexpected identifier").
 - `lucyc` prints warnings to stdout, where they mix with the compiled output.
 - Identifiers from `use` can collide with names the output uses (there's a warning, not a fix).
 - Kept on purpose for now, marked `// Known bug:` in the source: multi-line comments, tabs and CRLF handling.
