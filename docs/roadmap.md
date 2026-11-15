@@ -6,9 +6,11 @@ What's in flight and what's known to be wrong, across repos. Last updated 2026-1
 
 - **Typed events, the last release.** Shipped in liblucy 0.6.0, `@lucy/lezer-lucy` 0.2.0, `@lucy/codemirror-lang` 0.2.0, `@lucy/prism` 1.6.0 and the website. Left: lucy-vscode#3 (merged) still has to be published to the Marketplace by hand. See [decisions.md](decisions.md).
 - **liblucy 0.7: declarations always on, TypeScript output.** Shipped in liblucy 0.7.0 and on the website. `@lucy/vite` 0.2.1 writes `.lucy.d.ts` by default and takes liblucy `^0.7.0`.
+- **Actors.** Making a running machine a proper actor, in steps (see [decisions.md](decisions.md)). 1: the event queue, merged as liblucy#84 and not yet released; the website's docs wait for the release. 2: parent references for spawned machines, options for child machines, stopping a child whose key is reassigned. 3: input for spawned machines (syntax to be designed). 4: `invoke` re-expressed as spawn on entry and stop on exit, with `done` and `error` as events from the child.
 
 ## Known bugs in liblucy
 
+- Spawning into a context key that already holds a machine leaves the old one running: `stop()` only stops what the key holds now.
 - Named actions and guards bound to symbols (`action log = :log`) don't read `actions`/`guards` from the options, so the machine throws a ReferenceError when they run.
 - `send(parent, ...)` compiles but fails at run time: spawned machines get no reference to their parent.
 - Spawned and invoked child machines are created without options, so they can't use symbols.
