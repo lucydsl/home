@@ -1,6 +1,6 @@
 # What the compiler emits
 
-liblucy turns a `.lucy` file into one JavaScript module and the `.d.ts` that types it, or (from 0.7, `lucyc --ts`, `format: 'ts'`) into one TypeScript module holding both. The reference is liblucy's readme and the snapshots in `repos/liblucy/test/snapshots/`. Anything that consumes compiled machines (the website's examples, bundler plugins, a REPL) depends on this shape.
+liblucy turns a `.lucy` file into one JavaScript module and the `.d.ts` that types it, or (`lucyc --ts`, `format: 'ts'`) into one TypeScript module holding both. The reference is liblucy's readme and the snapshots in `repos/liblucy/test/snapshots/`. Anything that consumes compiled machines (the website's examples, bundler plugins, a REPL) depends on this shape.
 
 ## Shape
 
