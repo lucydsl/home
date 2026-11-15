@@ -5,7 +5,7 @@ What's in flight and what's known to be wrong, across repos. Last updated 2026-1
 ## In flight
 
 - **Typed events, the last release.** Shipped in liblucy 0.6.0, `@lucy/lezer-lucy` 0.2.0, `@lucy/codemirror-lang` 0.2.0, `@lucy/prism` 1.6.0 and the website. Left: lucy-vscode#3 (merged) still has to be published to the Marketplace by hand. See [decisions.md](decisions.md).
-- **liblucy 0.7: declarations always on, TypeScript output.** Shipped in liblucy 0.7.0 and on the website. `@lucy/vite` 0.2.0 (`.lucy.d.ts`, on by default) is out but still installs liblucy 0.6; 0.2.1 (vite-plugin#2) moves it to `^0.7.0`.
+- **liblucy 0.7: declarations always on, TypeScript output.** Shipped in liblucy 0.7.0 and on the website. `@lucy/vite` 0.2.1 writes `.lucy.d.ts` by default and takes liblucy `^0.7.0`.
 
 ## Known bugs in liblucy
 
