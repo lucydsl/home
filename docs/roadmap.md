@@ -4,7 +4,7 @@ What's in flight and what's known to be wrong, across repos. Last updated 2026-1
 
 ## In flight
 
-- **Typed events** (liblucy#80, released in 0.6.0): `event name(Type)` in a machine block. The grammars and docs follow it, each waiting on the one before: lezer-lucy#2 (also the rest of the syntax, which it was missing), then codemirror-lang#1 (needs a lezer-lucy release); lucy-prism#2; lucy-vscode#3; website#10 (needs a `@lucy/prism` release to highlight `event`). See [decisions.md](decisions.md).
+- **Typed events, the last releases.** Shipped in liblucy 0.6.0, `@lucy/lezer-lucy` 0.2.0, `@lucy/prism` 1.6.0 and the website. Left: `@lucy/codemirror-lang` 0.2.0 is merged but not yet tagged, and lucy-vscode#3 (merged) still has to be published to the Marketplace by hand. See [decisions.md](decisions.md).
 
 ## Known bugs in liblucy
 
