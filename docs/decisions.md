@@ -12,6 +12,15 @@ A running machine is treated as an actor, and the work on actors (parent referen
 - **Not decided here:** dropping events sent after `stop()`, which would change every machine's output.
 - **Actor references stay opaque in the language.** Lucy code only does `send(ref, event)`, so a reference could later be an id resolved by a system instead of an object.
 
+## 2026-11: Declarations are always on, and TypeScript is a second output format
+
+Making the `.d.ts` opt-in (`--experimental-dts`, `dts: true`) was a mistake: types are the reason to declare events, and nobody is worse off for having the file. From liblucy 0.7:
+
+- **No option.** `lucyc` writes the `.d.ts` beside whatever it writes, and `compile()` always returns `{ js, dts }`. `--experimental-dts` and `dts: true` are accepted and ignored. The C API's `lucy_result_set_options` is gone.
+- **JavaScript stays the default.** It runs anywhere with no build step, and the snapshots keep it readable.
+- **TypeScript is a format, not a replacement.** `lucyc --ts` and `compile(source, name, { format: 'ts' })` give one `.ts` module with the types inline, for projects that want a single file to check in or run directly. It is typed at its exports and uses `any` inside, under `// @ts-nocheck`; see [output.md](output.md).
+- **The Vite plugin writes `toggle.lucy.d.ts`**, on by default (`@lucy/vite` 0.2.0). TypeScript finds that name for `import './toggle.lucy'` with no configuration; `toggle.d.lucy.ts` needs `allowArbitraryExtensions`.
+
 ## 2026-11: Vite is the one supported build tool
 
 `@lucy/vite` (vite-plugin) is the only build tool plugin that is documented and kept up with the compiler. It is written for Vite 8's Rolldown: a `transform` hook with a hook filter for `.lucy` ids, so other modules never reach the plugin, and it still works back to Vite 6.3. The Rollup and Snowpack plugins are left as they are, out of the docs; they may be updated later.
