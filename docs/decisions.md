@@ -2,6 +2,16 @@
 
 Choices that shape more than one repo, newest first. Add an entry when one is made; don't rewrite old ones, add a new entry that supersedes them.
 
+## 2026-11: A machine is an actor: one event at a time, with a queue
+
+A running machine is treated as an actor, and the work on actors (parent references, input for spawned machines, invoke) builds on that. The first piece is the mailbox:
+
+- **Run to completion.** An event sent to a machine during a transition is queued and handled afterwards, in order.
+- **Synchronous, not a microtask.** The outermost `send` drains the queue before it returns, so the API is unchanged: `machine.send('x'); machine.state` still works.
+- **Only where it can matter.** The queue is emitted for machines that call code they don't own during a transition. A machine without one keeps the old behaviour when a listener sends during a notification: the nested send runs at once.
+- **Not decided here:** dropping events sent after `stop()`, which would change every machine's output.
+- **Actor references stay opaque in the language.** Lucy code only does `send(ref, event)`, so a reference could later be an id resolved by a system instead of an object.
+
 ## 2026-11: Vite is the one supported build tool
 
 `@lucy/vite` (vite-plugin) is the only build tool plugin that is documented and kept up with the compiler. It is written for Vite 8's Rolldown: a `transform` hook with a hook filter for `.lucy` ids, so other modules never reach the plugin, and it still works back to Vite 6.3. The Rollup and Snowpack plugins are left as they are, out of the docs; they may be updated later.
