@@ -14,7 +14,6 @@ What's in flight and what's known to be wrong, across repos. Last updated 2026-1
 - `send(parent, ...)` compiles but fails at run time: spawned machines get no reference to their parent.
 - Spawned and invoked child machines are created without options, so they can't use symbols. The compiler warns about it (the machine and the options it needs); supplying them is part of the actor work.
 - A top-level `action` or `guard` followed by a `machine { }` block fails to parse ("Unknown top-level identifier" at the machine's first state). Declare them inside the machine instead.
-- A name with a digit in it (`state s1`) fails to parse ("Unexpected identifier").
 - `lucyc` prints warnings to stdout, where they mix with the compiled output.
 - Identifiers from `use` can collide with names the output uses (there's a warning, not a fix).
 - Kept on purpose for now, marked `// Known bug:` in the source: multi-line comments, tabs and CRLF handling.
