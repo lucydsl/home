@@ -44,6 +44,10 @@ The project no longer holds lucylang.org, so that domain should appear nowhere: 
 
 The site moved from Eleventy to Astro and is served as a static-assets Worker. Pushing to `main` deploys; pull requests get previews. Its CSS follows [Tideway](https://tidewaystyle.com/): tokens, semantic colour roles, flat BEM. The design ("a statechart, printed at night") is described in the website's readme.
 
+## 2026-11: The VS Code extension publishes from CI too
+
+lucy-vscode's `release.yml` runs `vsce publish --oidc` on a `v<version>` tag. The `lucylang2` publisher has a trusted publishing policy for that repository and workflow file, so, as with npm, there is no token to keep (Azure DevOps PATs are retired on 2026-12-01 anyway). First used for 0.2.0.
+
 ## 2026-11: Publish to npm from CI, with trusted publishing
 
 The four published packages (`@lucy/liblucy`, `@lucy/lezer-lucy`, `@lucy/codemirror-lang`, `@lucy/prism`) publish from a `release.yml` workflow in their repo when a `v*` tag is pushed. npm trusts that workflow file in that repo (OIDC), so there are no tokens. The workflow's filename and the repo are fixed on npmjs.com: renaming either breaks publishing until the trusted publisher is deleted and added again there.
