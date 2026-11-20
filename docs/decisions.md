@@ -2,6 +2,17 @@
 
 Choices that shape more than one repo, newest first. Add an entry when one is made; don't rewrite old ones, add a new entry that supersedes them.
 
+## 2026-11: Lists of machines are operations in the language
+
+To keep more than one spawned machine, a machine uses `append(key, spawn(machine))` and `remove(key, value)`, not a function that builds the list in JavaScript.
+
+- **A list, not a map.** Removal is by reference: the child sends `self`, and the parent removes `event.data`. A map keyed by id would need a key at every spawn.
+- **No broadcast.** `send` goes to one machine; sending to a list waits until something needs it. The host reads the list and sends to its machines directly.
+- **`append` takes a spawn only**, so the machine always owns what is in its lists, and `remove` only stops what the list holds.
+- **A finished machine stays** in the list until it is removed.
+- **`append` and `remove` are reserved where an action goes.** A state can't be called either and be a target; an event can.
+- **Known edge:** a child that tells its parent it is removed from inside its own transition can be stopped mid-transition, which clears its listeners before its last notification. A system that delivers messages itself would fix this.
+
 ## 2026-11: A machine has only what it names; spawn input is a block of references
 
 Decided ahead of building input for spawned machines (the roadmap's actor work):
