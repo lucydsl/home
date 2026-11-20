@@ -7,6 +7,7 @@ liblucy turns a `.lucy` file into one JavaScript module and the `.d.ts` that typ
 - One exported factory per machine: `createLight` for `machine light`, and a default export `createMachine` for a file's unnamed machine.
 - A factory takes `{ context, actions, guards, assigns, delays, services }` and reads only the options that machine uses. Every supplied function is called as `(context, event)`.
 - A machine that uses `send(parent, event)` also takes `parent`: anything with a `send`. A machine gives itself as the parent to what it spawns or invokes (a machine of the same file only when it sends to its parent; an imported factory or a `services` entry always, as `{ parent }`). Without a parent the send does nothing.
+- A send's data is `event.data` unless it has a third argument, a value: `parent?.send({ type: 'removed', data: machine })`. A `:symbol` value comes from `assigns`.
 - Spawning into a context key stops what the key held first.
 - A spawn with a block of inputs creates the machine with them as its `context`: `createTodoItem({ context: { title: event.data }, parent: machine })`, printed over several lines. A `:symbol` value comes from `assigns`. An imported factory or a `services` entry is called with `{ context, parent }`.
 - Inputs change nothing in the machine that declares them. In the `.d.ts` they are `TodoItemInput`, the context has to hold them, and the options are required.
