@@ -6,6 +6,8 @@ liblucy turns a `.lucy` file into one JavaScript module and the `.d.ts` that typ
 
 - One exported factory per machine: `createLight` for `machine light`, and a default export `createMachine` for a file's unnamed machine.
 - A factory takes `{ context, actions, guards, assigns, delays, services }` and reads only the options that machine uses. Every supplied function is called as `(context, event)`.
+- A machine that uses `send(parent, event)` also takes `parent`: anything with a `send`. A machine gives itself as the parent to what it spawns or invokes (a machine of the same file only when it sends to its parent; an imported factory or a `services` entry always, as `{ parent }`). Without a parent the send does nothing.
+- Spawning into a context key stops what the key held first.
 - It returns `{ state, context, send, subscribe, start, stop }`, plus `done` when the machine has final states.
 - `state` is a string; nested states are dotted paths (`'red.walk'`). `context` is replaced, never mutated, by each `assign`.
 - Events are `{ type, data? }`; `send('name')` is shorthand for `send({ type: 'name' })`. Invokes report with `done` and `error` events carrying `data`.

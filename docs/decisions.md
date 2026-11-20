@@ -2,6 +2,18 @@
 
 Choices that shape more than one repo, newest first. Add an entry when one is made; don't rewrite old ones, add a new entry that supersedes them.
 
+## 2026-11: A machine has only what it names; spawn input is a block of references
+
+Decided ahead of building input for spawned machines (the roadmap's actor work):
+
+- **Nothing passes from a parent to a child implicitly.** A machine has what its own `machine { }` block names, and whoever creates it supplies that. A parent's actions and guards don't reach the machines it spawns. The compiler has one interface per machine for this (liblucy#85), and warns about a child that needs options nothing supplies.
+- **A child may know its parent's event names.** `send(parent, event)` treats the parent as an interface: any machine that accepts those events can be the parent, and so can the host, through the `parent` option.
+- **Input is declared like events:** `input name(Type)` in the machine's block, with the type optional and passed through to TypeScript. Inputs are the machine's initial context, which revises "context gets no declaration" for these keys only.
+- **It is supplied in a block after the spawn,** one `name = value` per line, no commas: `spawn(todoItem) { title = event.data }`. `=` and not `:`, which is the symbol sigil.
+- **A value is a reference, not an expression:** `event.data`, `context.name`, `self`, `parent`, or a function (from `use` or a `:symbol`) called with `(context, event)`. No operators, literals or deeper paths; those can be added later.
+- **No implicit sender.** A parent learns which child sent an event from the event's data, which a data argument for `send` will supply (`send(parent, removed, self)`).
+- **Warnings, not errors,** for a spawn that omits a declared input or passes an undeclared one, as with events.
+
 ## 2026-11: A machine is an actor: one event at a time, with a queue
 
 A running machine is treated as an actor, and the work on actors (parent references, input for spawned machines, invoke) builds on that. The first piece is the mailbox:
