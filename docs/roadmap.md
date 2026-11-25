@@ -11,7 +11,7 @@ What's in flight and what's known to be wrong, across repos. Last updated 2026-1
 
 - A top-level `action` or `guard` followed by a `machine { }` block fails to parse ("Unknown top-level identifier" at the machine's first state). Declare them inside the machine instead.
 - `lucyc` prints warnings to stdout, where they mix with the compiled output.
-- liblucy's release workflow can fail on the GitHub release: its two build jobs each create the release, and the one that loses the race gets "already exists" (it did for 0.8.1). The npm publish is a separate job and isn't affected. Re-running the failed jobs attaches the missing binary.
+- liblucy's release workflow could fail on the GitHub release, when its two build jobs raced to create it (as for 0.8.1). liblucy#96 has one job make the release, as a draft, and publish it once both binaries are there. Not yet proven: the next release is the test. Remove this once one has gone through.
 - Identifiers from `use` can collide with names the output uses (there's a warning, not a fix).
 - Kept on purpose for now, marked `// Known bug:` in the source: multi-line comments, tabs and CRLF handling.
 
