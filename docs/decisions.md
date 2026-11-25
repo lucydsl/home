@@ -2,6 +2,17 @@
 
 Choices that shape more than one repo, newest first. Add an entry when one is made; don't rewrite old ones, add a new entry that supersedes them.
 
+## 2026-11: Code and data stay separate, and both are given in Lucy at the spawn
+
+A machine's context is data; its `:symbols` are code. Putting functions in the context, so that a symbol named a context key and the `actions`/`guards`/`assigns`/`delays`/`services` options went away, was considered and turned down.
+
+- **Why separate:** so that a machine's state can one day be saved and restored, as XState's can, which needs a context that holds no functions. The split came from XState, whose options the old compiler filled, but XState 5 keeps it for this reason, and the code belongs to a kind of machine while the context belongs to one instance.
+- **The language comes first.** What a spawned machine needs is said in Lucy, where it is spawned, not through an option that JavaScript passes. A JavaScript-side API is never the primary way to do something; at most it is what the root machine's host can't avoid.
+- **Syntax:** in a spawn's block, `name = value` is an input and `:name = function` is a symbol. The sigil is the difference, on the page.
+- **No kind on the line.** The compiler knows whether the spawned machine uses the symbol as a guard, an action or anything else, so the line doesn't say.
+- **Passing on is explicit.** A machine gives a child one of its own symbols by naming it, and that symbol is then one its own creator has to supply. Nothing reaches a child that a line didn't give it.
+- **Same-file machines only**, as the compiler has to see how the symbol is used.
+
 ## 2026-11: Lists of machines are operations in the language
 
 To keep more than one spawned machine, a machine uses `append(key, spawn(machine))` and `remove(key, value)`, not a function that builds the list in JavaScript.

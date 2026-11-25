@@ -11,6 +11,7 @@ liblucy turns a `.lucy` file into one JavaScript module and the `.d.ts` that typ
 - Spawning into a context key stops what the key held first.
 - `append(key, spawn(x))` makes a new array, `[...(machine.context.key ?? []), x().start()]`, so the list need not exist. `remove(key, value)` stops the machine and filters it out, only if the list includes it. `stop()` stops each machine in the list.
 - A spawn with a block of inputs creates the machine with them as its `context`: `createTodoItem({ context: { title: event.data }, parent: machine })`, printed over several lines. A `:symbol` value comes from `assigns`. An imported factory or a `services` entry is called with `{ context, parent }`.
+- A symbol a spawn gives is beside the context, in the option the spawned machine uses it in: `createTodoItem({ context: {...}, guards: { canDelete: guards.canDeleteTodo }, actions: { log } })`. A symbol of its own that a machine gives away is in the same option of its factory, and typed `(context: any, event: any)` in the `.d.ts` when the machine only passes it on.
 - Inputs change nothing in the machine that declares them. In the `.d.ts` they are `TodoItemInput`, the context has to hold them, and the options are required.
 - It returns `{ state, context, send, subscribe, start, stop }`, plus `done` when the machine has final states.
 - `state` is a string; nested states are dotted paths (`'red.walk'`). `context` is replaced, never mutated, by each `assign`.
