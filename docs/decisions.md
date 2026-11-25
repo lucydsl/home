@@ -2,6 +2,16 @@
 
 Choices that shape more than one repo, newest first. Add an entry when one is made; don't rewrite old ones, add a new entry that supersedes them.
 
+## 2026-11: An invoked machine is a spawned machine scoped to a state
+
+`invoke` was two features under one word, and the machine one had fallen behind `spawn`: it couldn't be given inputs or symbols.
+
+- **One block.** The invoke's block holds its transitions and, for a machine, the lines of a spawn's block: `name = value` and `:name = function`. They can't be confused, as transitions use `=>`. The nested form, `invoke(spawn(x) { ... }) { done => ... }`, was turned down.
+- **One mechanism.** The compiler creates an invoked machine with the code that creates a spawned one, so the checks on inputs and symbols apply to both.
+- **Events from the machine are the state's own.** What it sends its parent is handled by ordinary transitions of the state. Only `done` is in the block.
+- **Invoked functions are unchanged.** They compile to short code, and are the shorthand for running an async function while a state is active.
+- **Not decided, on purpose:** what a machine finishes with (`done` from a machine has no data), and whether the state can send to the machine it invoked.
+
 ## 2026-11: Code and data stay separate, and both are given in Lucy at the spawn
 
 A machine's context is data; its `:symbols` are code. Putting functions in the context, so that a symbol named a context key and the `actions`/`guards`/`assigns`/`delays`/`services` options went away, was considered and turned down.
