@@ -23,3 +23,24 @@ What's in flight and what's known to be wrong, across repos. Last updated 2026-1
 
 ## Ideas
 
+Not planned, and not thought through. Each is here so it isn't lost.
+
+### `system { }`: actors by id
+
+From the maintainer, 2026-11, borrowing from [actordom](https://github.com/matthewp/actordom): a `system { }` block that defines a system of actors, in which an actor is a string id, and a machine can communicate with any actor in the system without holding a direct reference to it.
+
+Nothing about it is designed. What has been done with it in mind:
+
+- **References are opaque in the language.** Lucy code only spawns, sends to, appends and removes a reference; it never reads a machine's state or calls its methods. So a reference could become an id without a `.lucy` file changing.
+- **No implicit sender.** A machine says who it is by sending `self`, which is a reference like any other.
+- **The context holds no code.** Symbols are given beside the context, never in it (see [decisions.md](decisions.md)), so a context could be sent or saved. It does still hold machine references, which would have to be ids first.
+
+What it would have to answer, none of it decided:
+
+- What goes in the block, and how a machine or a file belongs to a system.
+- How an id is made, and whether a machine can be given a known one.
+- Who delivers events. A system with its own delivery would fix the known edge where a machine stopped from inside its own transition misses its last notification, and is where sending to a machine that isn't there yet, or any more, gets an answer.
+- Who owns an actor's lifetime when anything can address it: the machine that spawned it, as now, or the system.
+- Whether a system can span a boundary (a worker, a server), as actordom's does. Symbols are functions and can't cross one.
+- How it relates to saving and restoring a machine's state.
+
