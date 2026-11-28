@@ -1,6 +1,6 @@
 ---
 name: change-syntax
-description: Add or change Lucy language syntax (a keyword, a construct, a new form of an existing one) and carry it through every repo that knows the syntax - the liblucy parser and printer, the Lezer, Prism and TextMate grammars, and the website docs. Use when asked to add a language feature or when a grammar has fallen out of step with the compiler.
+description: Add or change Lucy language syntax (a keyword, a construct, a new form of an existing one) and carry it through every repo that knows the syntax - the liblucy parser and printer, the Lezer, Prism, TextMate and tree-sitter grammars, and the website docs. Use when asked to add a language feature or when a grammar has fallen out of step with the compiler.
 ---
 
 # Change Lucy's syntax
@@ -27,6 +27,7 @@ For each, add the syntax and a test or sample that shows it highlighted or parse
 - `repos/lezer-lucy/src/lucy.grammar`, then `repos/codemirror-lang/src/lucy.ts` if there are new node names to tag.
 - `repos/lucy-prism/lib/lucy.js`.
 - `repos/lucy-vscode/syntaxes/lucy.tmLanguage.json`.
+- `repos/tree-sitter-lucy/grammar.js`, then its queries in `queries/` (`highlights.scm` for new node names and keywords). Run `npx tree-sitter generate` and commit the regenerated `src/` with it (CI checks it's up to date), and add a case to `test/corpus/`. Check that every valid `.lucy` input in liblucy's tests still parses: `npx tree-sitter parse --quiet --stat ../liblucy/test/snapshots/*/input.lucy` (the `error_` ones aren't valid).
 
 These may already be behind the parser. Fix what you find in the area you're touching, and note the rest in `docs/roadmap.md`.
 
