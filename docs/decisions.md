@@ -2,6 +2,21 @@
 
 Choices that shape more than one repo, newest first. Add an entry when one is made; don't rewrite old ones, add a new entry that supersedes them.
 
+## 2026-11: Views, compiled to the exact DOM changes
+
+A machine can hold a view. The compiler knows every place a key is assigned and every state, so it emits the DOM change for each, with nothing compared at run time. Prototyped in local repos, then built in liblucy#97.
+
+- **A view belongs to the machine:** `view { }` in a top-level, named machine. A state's markup is a part, `view(name) { }` in the state, placed where the view has `{part(name)}`, made the first time and kept.
+- **Values are keys, never expressions.** `{key}`, `attr={key}`. Derived values (`{:fullName}`) were considered and left out for now, for the code they'd cost.
+- **Events are `on:event={name}`,** any DOM event, unambiguous; JSX's `onClick` and the like were considered and turned down. The DOM event is the Lucy event's data. `preventDefault` is up to an action.
+- **The template is a fragment, cloned** (as Solid does), so a view needn't have one root element. `machine.dom` is the fragment and `machine.nodes` its top-level nodes.
+- **The DOM changes right after the assign** of the key it shows, as if it were a hidden action. A run of assigns updates once, after the run.
+- **Where the view runs is a compile-time target,** `dom` or `ssr` (`render()`, a string). Hydration is an opt-in compile option for both sides, `--hydrate`, so that without it there is no code for it and with it a machine that hydrates has no template: no output carries another's code. A machine the module spawns still builds its own view, as it can be made after the page loads.
+- **Assigns in runs.** Two or more assigns in a row copy the context once; each sees the ones before it; a throw leaves none of them. One assign alone stays inline, as it's shorter.
+- **Frameworks get components from their plugin, not the compiler.** `@lucy/vite`'s `components` option appends `export { createGreeter as Greeter }` and a props-typed declaration; the compiler knows nothing of it. Making props the factory's options (`context={{...}}`) was turned down as worse to write.
+- **The Astro integration is its own repo,** lucydsl/astro, like the other integrations.
+- **Not decided, on purpose:** state and spawned children across the server–browser boundary (the server renders the machine as it starts, and the browser starts it again), which is the same question as saving a machine's state.
+
 ## 2026-11: An invoked machine is a spawned machine scoped to a state
 
 `invoke` was two features under one word, and the machine one had fallen behind `spawn`: it couldn't be given inputs or symbols.
