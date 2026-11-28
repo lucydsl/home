@@ -38,6 +38,7 @@ Syntax support (each has its own copy of the grammar; see [docs/language.md](doc
 - lucy-prism (Prism highlighting, `@lucy/prism`; the website uses it): `repos/lucy-prism`. Clone from `git@github.com:lucydsl/lucy-prism.git` if missing.
 - lucy-vscode (VS Code extension, TextMate grammar): `repos/lucy-vscode`. Clone from `git@github.com:lucydsl/lucy-vscode.git` if missing.
 - codemirror-lang (CodeMirror 6 language support, built on lezer-lucy): `repos/codemirror-lang`. Clone from `git@github.com:lucydsl/codemirror-lang.git` if missing.
+- tree-sitter-lucy (tree-sitter grammar and queries, for Helix, Neovim, Zed and other editors; not published, editors build it from the repo): `repos/tree-sitter-lucy`. Clone from `git@github.com:lucydsl/tree-sitter-lucy.git` if missing. Support for an editor lives here, with setup in its readme; Lucy isn't sent upstream to the editors themselves.
 
 Dormant (last real work in 2021; they target old liblucy versions that emitted XState, so don't treat their code as current, and check with the maintainer before reviving one):
 

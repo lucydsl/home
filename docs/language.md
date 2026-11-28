@@ -55,6 +55,7 @@ machine checkout {
 | `repos/codemirror-lang/src/lucy.ts` | Highlighting tags and completion on top of the Lezer grammar. |
 | `repos/lucy-prism/lib/lucy.js` | Prism grammar (regex based). The website highlights with it. |
 | `repos/lucy-vscode/syntaxes/lucy.tmLanguage.json` | TextMate grammar for VS Code. |
+| `repos/tree-sitter-lucy/grammar.js` | tree-sitter grammar, for Helix, Neovim, Zed and other tree-sitter editors, with an external scanner (`src/scanner.c`) for the `=>` that starts a line. Queries (Helix's capture names) in `queries/`. Tests in `test/corpus/` (`npm test`). |
 | `repos/website/src/pages/docs/language.md` | The reference people read. |
 | `repos/website/src/examples/` | Home page examples; the `.js` files are real `lucyc` output. |
 
